@@ -6,25 +6,30 @@ let url = "https://raw.githubusercontent.com/kunxin-chor/data-files-and-stuff/ma
 async function loadData(){
 
     let response = await axios.get(url);
-    // console.log(response.data);
-
     return response.data;
-
-
-
-
-
 }
 
 
 let selectBtn = document.querySelector(".getDataBtn");
 
-selectBtn.addEventListener("click", function(){
+selectBtn.addEventListener("click", async function(){
     
-    let userData = loadData();
+    let userData = await loadData();
 
-    const listUL = document.createElement("ul");
-    listUL.innerHTML="hello";
+    // const listUL = document.createElement("ul");
+    // listUL.innerHTML="hello";
 
+    let displayItem = `
+    <ul>
+  <li>First Name: ${userData.firstName}</li>
+  <li>Last Name: ${userData.lastName}</li>
+  <li>Street Address: ${userData.address["streetAddress"]}</li>
+  <li>City: ${userData.address["city"]}</li>
+  <li>State: ${userData.address["state"]}</li>
+  <li>Postal Code: ${userData.address["postalCode"]}</li>
+</ul>`;
+
+ 
+document.querySelector(".displayItems").innerHTML = displayItem;
 
 })

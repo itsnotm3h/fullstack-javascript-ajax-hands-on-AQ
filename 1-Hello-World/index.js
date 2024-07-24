@@ -12,11 +12,44 @@
 
 let url = ("https://4geeksacademy.github.io/exercise-assets/txt/hello.txt");
 
-async function getData(){
+// async function getData(){
 
-    let response = await axios.get(url);
-    document.querySelector("body").innerHTML = response.data;
+//     // is a promise with an await. 
+//     //const cannot reassign. 
+//     // following industry standard. 
+//     // will pause at line 4 in this scope, it will still continue to run any function that is outside of this scope. 
+//     const response = await axios.get(url);
+//     document.querySelector("#output").innerHTML = response.data;
+
+// }
+
+// getData();
+
+
+//more complex solution.
+// one function responsible for different part. SIEPO
+// u should follow the sequence.  ^^ 
+// modular programming ^^ is the concept. 
+// it helpes in debugging,one fail but not all will fail. 
+
+async function loadData(){
+    // must have await to return a promise. it is a delayed function.
+    // awaiit a promise 
+    const response = await axios.get(url);
+    return response.data;
+}
+
+function renderData(data)
+{
+    const outputElement = document.querySelector("#output");
+    outputElement.innerHTML = data;
 
 }
 
-getData();
+//means HTML is processed, it will first fire the an event when its loaded. 
+document.addEventListener("DOMContentLoaded", async function(){
+
+    const data = await loadData();
+    renderData(data);
+
+});
